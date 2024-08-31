@@ -2,8 +2,9 @@ import eslintPluginImport from 'eslint-plugin-import';
 
 const config = [
   {
-    languageOptions: {
-      ecmaVersion: 2020,
+    parser: 'espree', 
+    parserOptions: {
+      ecmaVersion: 2020, 
       sourceType: 'module',
     },
     plugins: {
