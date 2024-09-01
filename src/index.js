@@ -5,7 +5,7 @@ import path from 'path';
 export const genDiff = (filepath1, filepath2) => {
   const filepaths = [filepath1, filepath2];
 
-  let objects = filepaths.map(filepath => {
+  const objects = filepaths.map(filepath => {
     const extension = filepath.substring(filepath.lastIndexOf('.') + 1);
     const file = fs.readFileSync(path.resolve(filepath));
     let obj;
@@ -19,8 +19,11 @@ export const genDiff = (filepath1, filepath2) => {
 
   const resultObject = Object.assign(_.cloneDeep(obj1), _.cloneDeep(obj2));
   const entries = Object.entries(resultObject);
+  const sortedEntries = _.sortBy(entries, function (item) {
+    return item[0];
+  })
 
-  const formString = entries.reduce((str, entry) => {
+  const formString = sortedEntries.reduce((str, entry) => {
     const [key, value] = entry;
     if (Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key) && value === obj1[key]) {
       str = `${str}    ${key}: ${value}\n`;
