@@ -1,32 +1,21 @@
-import eslintPluginImport from 'eslint-plugin-import';
+import importPlugin from "eslint-plugin-import";
 
-const config = [
+export default [
   {
-    parser: 'espree', 
-    parserOptions: {
-      ecmaVersion: 2020, 
-      sourceType: 'module',
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+      },
     },
-    plugins: {
-      import: eslintPluginImport,
+    plugins: { import: importPlugin },
+    settings: {
+      "import/parsers": {
+        espree: [".js", ".cjs"],
+      },
     },
     rules: {
-      'no-unused-vars': 'warn',
-      'no-console': 'warn',
-      'semi': ['error', 'always'],
-      'quotes': ['error', 'single'],
-      'indent': ['error', 2],
-      'import/no-unresolved': 'error',
-      'import/named': 'error',
-      'import/default': 'error',
-      'import/namespace': 'error',
-      'import/no-absolute-path': 'error',
-      'import/export': 'error',
-      'import/no-deprecated': 'warn',
-      'import/no-extraneous-dependencies': 'warn',
-      'import/no-mutable-exports': 'warn',
+      ...importPlugin.configs["recommended"].rules,
     },
   },
-];
-
-export default config;
+]
