@@ -1,3 +1,5 @@
+name: run-tests
+on: push
 jobs:
   tests:
    runs-on: ubuntu-latest
@@ -7,4 +9,4 @@ jobs:
     - uses: actions/setup-node@v4
     - run: npm install
     - run: make lint
-    - run: npx jest
+    - run: make test
