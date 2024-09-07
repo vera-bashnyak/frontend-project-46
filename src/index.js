@@ -19,10 +19,8 @@ return objects;
 
 const genDiff = (filepath1, filepath2) => {
   const [obj1, obj2] = parse(filepath1, filepath2);
-
   const resultObject = Object.assign(_.cloneDeep(obj1), _.cloneDeep(obj2));
-  const entries = Object.entries(resultObject);
-  const sortedEntries = _.sortBy(entries, function (item) {
+  const sortedEntries = _.sortBy(Object.entries(resultObject), function (item) {
     return item[0];
   });
 
@@ -34,7 +32,7 @@ const genDiff = (filepath1, filepath2) => {
       str = `${str}  - ${key}: ${obj1[key]}\n  + ${key}: ${value}\n`;
     } else if (!Object.hasOwn(obj1, key)) {
       str = `${str}  + ${key}: ${value}\n`;
-    } else if (!Object.hasOwn(obj2, key)) {
+    } else {
       str = `${str}  - ${key}: ${value}\n`;
     }
     return str;
