@@ -19,8 +19,8 @@ return objects;
 
 const genDiff = (filepath1, filepath2) => {
   const [obj1, obj2] = parse(filepath1, filepath2);
-  const resultObject = Object.assign(_.cloneDeep(obj1), _.cloneDeep(obj2));
-  const sortedEntries = _.sortBy(Object.entries(resultObject), function (item) {
+  const resultObject = { ..._.cloneDeep(obj1), ..._.cloneDeep(obj2)};
+  const sortedEntries = _.sortBy(resultObject, function (item) {
     return item[0];
   });
 
