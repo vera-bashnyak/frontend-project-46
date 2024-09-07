@@ -20,11 +20,13 @@ return objects;
 const genDiff = (filepath1, filepath2) => {
   const [obj1, obj2] = parse(filepath1, filepath2);
   const resultObject = Object.assign(_.cloneDeep(obj1), _.cloneDeep(obj2));
-  const sortedEntries = _.sortBy(resultObject, (item) => {
+  const entries = Object.entries(resultObject);
+  const sortedEntries = _.sortBy(entries, function (item) {
     return item[0];
   });
 
   const formString = sortedEntries.reduce((str, entry) => {
+    console.log(entry);
     const [key, value] = entry;
     if (Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key) && value === obj1[key]) {
       str = `${str}    ${key}: ${value}\n`;
