@@ -2,24 +2,23 @@ import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
 
-const parse = (file, extension) => {
+const parse = (filepath1, filepath2) => {
+const filepaths = [filepath1, filepath2];
+const objects = filepaths.map(filepath => {
+  const extension = filepath.substring(filepath.lastIndexOf('.') + 1);
+  const file = fs.readFileSync(path.resolve(filepath));
   let obj;
-    if (extension === 'json') {
-      obj = JSON.parse(file);
-    }
-    return obj;
-}
+  if (extension === 'json') {
+    obj = JSON.parse(file);
+  }
+  return obj;
+})
+return objects;
+};
+
 
 const genDiff = (filepath1, filepath2) => {
-  const filepaths = [filepath1, filepath2];
-
-  const objects = filepaths.map(filepath => {
-    const extension = filepath.substring(filepath.lastIndexOf('.') + 1);
-    const file = fs.readFileSync(path.resolve(filepath));
-    return parse(file, extension);
-  });
-
-  const [obj1, obj2] = objects;
+  const [obj1, obj2] = parse(filepath1, filepath2);
 
   const resultObject = Object.assign(_.cloneDeep(obj1), _.cloneDeep(obj2));
   const entries = Object.entries(resultObject);
