@@ -1,5 +1,5 @@
 const expectedOutput =
- `{
+`{
     common: {
       + follow: false
         setting1: Value 1
@@ -42,6 +42,5 @@ const expectedOutput =
         }
         fee: 100500
     }
-}`;
-
+}`
 export default expectedOutput;
