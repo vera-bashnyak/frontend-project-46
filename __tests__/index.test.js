@@ -12,6 +12,7 @@ test('compare json files', () => {
     const filepath2 = getFixturePath('file-nested2.json');
 
     expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(expectedOutput);
+    expect(genDiff(filepath1, filepath2, 'plain')).toEqual(expectedOutput);
 });
 
 test('compare yaml files', () => {
@@ -19,4 +20,5 @@ test('compare yaml files', () => {
     const filepath2 = getFixturePath('file-nested2.yml');
 
     expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(expectedOutput);
+    expect(genDiff(filepath1, filepath2, 'plain')).toEqual(expectedOutput);
 });

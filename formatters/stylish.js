@@ -12,7 +12,7 @@ const stylish = (obj1, obj2, result, replacer = ' ', spacesCount = 4, depth = 1)
     const [key, value] = entry;
     let str;
     let stringValue;
-  
+
     if (value instanceof Object) {
       stringValue = stylish(obj1[key] ?? {}, obj2[key] ?? {}, value, replacer, spacesCount, depth + 1);
     } else {
@@ -31,13 +31,22 @@ const stylish = (obj1, obj2, result, replacer = ' ', spacesCount = 4, depth = 1)
       str = `${spacesWithChar}- ${key}: ${stringValue}`;
     } 
     
-    else if (Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key) && value instanceof Object || value === obj1[key]) {
+    else if (
+      Object.hasOwn(obj1, key) &&
+      Object.hasOwn(obj2, key) &&
+      value instanceof Object ||
+      value === obj1[key]
+    ) {
       str = `${spacesWithoutChar}${key}: ${stringValue}`;
     } 
     
     else if (Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key) && value !== obj1[key]) {
-      str = obj1[key] instanceof Object ? `${spacesWithChar}- ${key}: ${stylish({}, {}, obj1[key], replacer, spacesCount, depth + 1)}\n${spacesWithChar}+ ${key}: ${stringValue}`
-      :`${spacesWithChar}- ${key}: ${obj1[key]}\n${spacesWithChar}+ ${key}: ${stringValue}`;
+      if (obj1[key] instanceof Object) {
+        const objectValue = stylish({}, {}, obj1[key], replacer, spacesCount, depth + 1);
+        str = `${spacesWithChar}- ${key}: ${objectValue}\n${spacesWithChar}+ ${key}: ${stringValue}`;
+      } else {
+        str = `${spacesWithChar}- ${key}: ${obj1[key]}\n${spacesWithChar}+ ${key}: ${stringValue}`;
+      }
     } 
     return str;
   });
