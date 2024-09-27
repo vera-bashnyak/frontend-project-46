@@ -1,6 +1,6 @@
-import _ from 'lodash';
+/* import _ from 'lodash';
 
-const stylish = (obj1, obj2, result, replacer = ' ', spacesCount = 4, depth = 1) => {
+const stylishFormatter = (obj1, obj2, result, replacer = ' ', spacesCount = 4, depth = 1) => {
     const entries = Object.entries(result);
     const sortedEntries = _.sortBy(entries, function (item) {
       return item[0];
@@ -54,4 +54,5 @@ const stylish = (obj1, obj2, result, replacer = ' ', spacesCount = 4, depth = 1)
   return `{\n${formString.join('\n')}\n${replacer.repeat(depth * spacesCount - 4)}}`;
   };
 
-  export default stylish;
+  export default stylishFormatter;
+*/

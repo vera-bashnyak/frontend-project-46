@@ -1,6 +1,6 @@
-import _ from 'lodash';
+/* import _ from 'lodash';
 
-const plain = (obj1, obj2, result, pathToKey = '') => {
+const plainFormatter = (obj1, obj2, result, pathToKey = '') => {
     const entries = Object.entries(result);
     const sortedEntries = _.sortBy(entries, function (item) {
       return item[0];
@@ -49,4 +49,5 @@ const plain = (obj1, obj2, result, pathToKey = '') => {
   return `${filtered.join('\n')}`;
   };
 
-  export default plain;
+  export default plainFormatter;
+*/
