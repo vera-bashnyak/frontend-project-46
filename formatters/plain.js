@@ -1,4 +1,4 @@
-/* import _ from 'lodash';
+import _ from 'lodash';
 
 const plainFormatter = (obj1, obj2, result, pathToKey = '') => {
     const entries = Object.entries(result);
@@ -50,4 +50,3 @@ const plainFormatter = (obj1, obj2, result, pathToKey = '') => {
   };
 
   export default plainFormatter;
-*/

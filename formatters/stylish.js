@@ -1,58 +1,43 @@
-/* import _ from 'lodash';
+import _ from 'lodash';
 
-const stylishFormatter = (obj1, obj2, result, replacer = ' ', spacesCount = 4, depth = 1) => {
-    const entries = Object.entries(result);
-    const sortedEntries = _.sortBy(entries, function (item) {
-      return item[0];
-    });
-    const spacesWithChar = replacer.repeat(depth * spacesCount - 2);
-    const spacesWithoutChar = replacer.repeat(depth * spacesCount);
+const stylishFormatter = (diffs, replacer = ' ', spacesCount = 4, depth = 1)=> {
+  const spacesWithChar = replacer.repeat(depth * spacesCount - 2);
+  const spacesWithoutChar = replacer.repeat(depth * spacesCount);
   
-    const formString = sortedEntries.map((entry) => {
-    const [key, value] = entry;
+  const formString = diffs.map((obj)=> {
     let str;
     let stringValue;
 
-    if (value instanceof Object) {
-      stringValue = stylish(obj1[key] ?? {}, obj2[key] ?? {}, value, replacer, spacesCount, depth + 1);
+    if (obj['value'] instanceof Array) {
+      stringValue = stylishFormatter(obj['value'], replacer, spacesCount, depth + 1);
     } else {
-      stringValue = value;
+      stringValue = obj['value'];
     }
-  
-    if (Object.keys(obj1).length === 0 || Object.keys(obj2).length === 0) {
-      str = `${spacesWithoutChar}${key}: ${stringValue}`;
-    } 
+
+    if (obj['status'] === 'undefined') {
+      str = `${spacesWithoutChar}${obj['name']}: ${stringValue}`;
+    }
     
-    else if (!Object.hasOwn(obj1, key)) {
-      str = `${spacesWithChar}+ ${key}: ${stringValue}`;
+    if (obj['status'] === 'added') {
+      str = `${spacesWithChar}+ ${obj['name']}: ${stringValue}`;
     }  
     
-    else if (!Object.hasOwn(obj2, key)) {
-      str = `${spacesWithChar}- ${key}: ${stringValue}`;
+    else if (obj['status'] === 'deleted') {
+      str = `${spacesWithChar}- ${obj['name']}: ${stringValue}`;
     } 
     
-    else if (
-      Object.hasOwn(obj1, key) &&
-      Object.hasOwn(obj2, key) &&
-      value instanceof Object ||
-      value === obj1[key]
-    ) {
-      str = `${spacesWithoutChar}${key}: ${stringValue}`;
+    else if (obj['status'] === 'not changed') {
+      str = `${spacesWithoutChar}${obj['name']}: ${stringValue}`;
     } 
     
-    else if (Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key) && value !== obj1[key]) {
-      if (obj1[key] instanceof Object) {
-        const objectValue = stylish({}, {}, obj1[key], replacer, spacesCount, depth + 1);
-        str = `${spacesWithChar}- ${key}: ${objectValue}\n${spacesWithChar}+ ${key}: ${stringValue}`;
-      } else {
-        str = `${spacesWithChar}- ${key}: ${obj1[key]}\n${spacesWithChar}+ ${key}: ${stringValue}`;
-      }
-    } 
+    else if (obj['status'] === 'changed') {
+      str = `${spacesWithChar}- ${obj['name']}: ${obj['valueBefore']}`;
+      str += `\n${spacesWithChar}+ ${obj['name']}: ${obj['valueAfter']}`;
+    }
     return str;
-  });
-  
+  }); 
   return `{\n${formString.join('\n')}\n${replacer.repeat(depth * spacesCount - 4)}}`;
-  };
+};
 
-  export default stylishFormatter;
-*/
+
+export default stylishFormatter;

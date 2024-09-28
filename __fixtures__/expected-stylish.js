@@ -42,5 +42,5 @@ const expectedOutput =
         }
         fee: 100500
     }
-}`
+}`;
 export default expectedOutput;
