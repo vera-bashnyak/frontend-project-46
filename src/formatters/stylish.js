@@ -7,18 +7,23 @@ const stylishFormatter = (diffs, replacer = ' ', spacesCount = 4, depth = 1)=> {
   const formString = diffs.map((obj)=> {
     let str;
     let stringValue;
+    let previousValue = obj['valueBefore'];
 
-    if (obj['value'] instanceof Array) {
-      stringValue = stylishFormatter(obj['value'], replacer, spacesCount, depth + 1);
+    if (obj['value'] instanceof Array || obj['valueBefore'] instanceof Array) {
+      stringValue = stylishFormatter(obj['value'] ?? obj['valueBefore'], replacer, spacesCount, depth + 1);
     } else {
       stringValue = obj['value'];
     }
 
-    if (obj['status'] === 'undefined') {
+    if (obj['valueBefore'] instanceof Array) {
+      previousValue = stringValue;
+    }
+
+    if (!obj.hasOwnProperty('status')) {
       str = `${spacesWithoutChar}${obj['name']}: ${stringValue}`;
     }
     
-    if (obj['status'] === 'added') {
+    else if (obj['status'] === 'added') {
       str = `${spacesWithChar}+ ${obj['name']}: ${stringValue}`;
     }  
     
@@ -26,12 +31,12 @@ const stylishFormatter = (diffs, replacer = ' ', spacesCount = 4, depth = 1)=> {
       str = `${spacesWithChar}- ${obj['name']}: ${stringValue}`;
     } 
     
-    else if (obj['status'] === 'not changed') {
+    else if (obj['status'] === 'not changed' || obj['status'] === 'object-changed') {
       str = `${spacesWithoutChar}${obj['name']}: ${stringValue}`;
     } 
     
     else if (obj['status'] === 'changed') {
-      str = `${spacesWithChar}- ${obj['name']}: ${obj['valueBefore']}`;
+      str = `${spacesWithChar}- ${obj['name']}: ${previousValue}`;
       str += `\n${spacesWithChar}+ ${obj['name']}: ${obj['valueAfter']}`;
     }
     return str;

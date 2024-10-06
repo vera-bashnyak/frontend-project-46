@@ -1,4 +1,4 @@
-const expectedOutput =
+const expectedStylish =
 `{
     common: {
       + follow: false
@@ -43,4 +43,4 @@ const expectedOutput =
         fee: 100500
     }
 }`;
-export default expectedOutput;
+export default expectedStylish;
