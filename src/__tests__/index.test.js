@@ -14,16 +14,16 @@ test('compare json files', ()=> {
   const filepath1 = getFixturePath('file-nested1.json');
   const filepath2 = getFixturePath('file-nested2.json');
 
-  expect(genDiff(filepath1, filepath2, formatName('stylish'))).toEqual(expectedStylish);
-  expect(genDiff(filepath1, filepath2, formatName('plain'))).toEqual(expectedPlain);
-  expect(genDiff(filepath1, filepath2, formatName('json'))).toEqual(expectedJson);
+  expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(expectedStylish);
+  expect(genDiff(filepath1, filepath2, 'plain')).toEqual(expectedPlain);
+  expect(genDiff(filepath1, filepath2, 'json')).toEqual(expectedJson);
 });
 
 test('compare yaml files', ()=> {
   const filepath1 = getFixturePath('file-nested1.yml');
   const filepath2 = getFixturePath('file-nested2.yml');
 
-  expect(genDiff(filepath1, filepath2, formatName('stylish'))).toEqual(expectedStylish);
-  expect(genDiff(filepath1, filepath2, formatName('plain'))).toEqual(expectedPlain);
-  expect(genDiff(filepath1, filepath2, formatName('json'))).toEqual(expectedJson);
+  expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(expectedStylish);
+  expect(genDiff(filepath1, filepath2, 'plain')).toEqual(expectedPlain);
+  expect(genDiff(filepath1, filepath2, 'json')).toEqual(expectedJson);
 });
