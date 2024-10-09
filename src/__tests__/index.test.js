@@ -4,7 +4,6 @@ import expectedStylish from '../__fixtures__/expected-stylish.js';
 import expectedPlain from '../__fixtures__/expected-plain.js';
 import expectedJson from '../__fixtures__/expected-json.js';
 import genDiff from '../index.js';
-import formatName from '../formatters/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
