@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 import genDiff from '../src/index.js';
-import formatName from '../src/formatters/index.js';
 
 program
   .name('gendiff')
@@ -11,7 +10,7 @@ program
   .option('-f, --format [type]', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2, options)=> {
-    console.log(genDiff(filepath1, filepath2, formatName(options.format)));
+    console.log(genDiff(filepath1, filepath2, options.format));
   });
 
 program.parse();
