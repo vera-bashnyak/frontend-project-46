@@ -8,7 +8,7 @@ const formatName = (name) => {
     plain: plainFormatter,
     json: jsonFormatter,
   };
-  return formatters[name] ??  stylishFormatter;
+  return formatters[name] ?? stylishFormatter;
 };
 
 export default formatName;
