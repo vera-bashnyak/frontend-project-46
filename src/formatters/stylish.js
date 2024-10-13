@@ -13,7 +13,7 @@ const stylishFormatter = (diffs, replacer = ' ', spacesCount = 4, depth = 1) => 
       stringValue = obj.value;
     }
 
-    if (!Object.prototype.hasOwnProperty(obj, 'status')) {
+    if (!Object.prototype.hasOwnProperty.call(obj, 'status')) {
       return `${spacesWithoutChar}${obj.name}: ${stringValue}`;
     }
     

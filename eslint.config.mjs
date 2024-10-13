@@ -21,7 +21,6 @@ export default [
       quotes: ['error', 'single'],
       semi: ['error', 'always'],
       'space-before-function-paren': ['error', 'always'],
-      'arrow-spacing': ['error', { 'before': false, 'after': true }],
       'keyword-spacing': ['error', { 'before': true, 'after': true, 'overrides': { 'return': { 'after': true } } }]
     }
   }
