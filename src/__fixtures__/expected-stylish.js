@@ -1,5 +1,4 @@
-const expectedStylish =
-`{
+const expectedStylish =`{
     common: {
       + follow: false
         setting1: Value 1

@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
-const findDiff = (obj1, obj2)=> {
+const findDiff = (obj1, obj2) => {
   const resultObject = _.merge(_.cloneDeep(obj1), _.cloneDeep(obj2));
   const entries = Object.entries(resultObject);
-  const sortedEntries = _.sortBy(entries, function (item) {
+  const sortedEntries = _.sortBy(entries, (item) => {
     return item[0];
   });
 
-  const diffs = sortedEntries.flatMap((entry)=> {
+  const diffs = sortedEntries.flatMap((entry) => {
     const [key, value] = entry;
     let resultValue = value;
     let previousValue = obj1[key];
@@ -17,40 +17,43 @@ const findDiff = (obj1, obj2)=> {
     
       if (obj1[key] instanceof Object
         && JSON.stringify(value) !== JSON.stringify(obj1[key])) {
-        return {name: key, status: 'object-changed', value: resultValue};
+        return { name: key, status: 'object-changed', value: resultValue };
       }
     }
 
     if (Object.keys(obj2).length === 0 || Object.keys(obj1).length === 0) {
-      return {name: key, value: resultValue};
+      return { name: key, value: resultValue };
     }
 
     if (!Object.hasOwn(obj1, key)) {
-      return {name: key, status: 'added', value: resultValue};
-    }  
+      return { name: key, status: 'added', value: resultValue };
+    }
     
-    else if (!Object.hasOwn(obj2, key)) {
-      return {name: key, status: 'deleted', value: resultValue};
-    } 
+    if (!Object.hasOwn(obj2, key)) {
+      return { name: key, status: 'deleted', value: resultValue };
+    }
     
-    else if (
-      Object.hasOwn(obj1, key) &&
-      Object.hasOwn(obj2, key) &&
-      JSON.stringify(value) === JSON.stringify(obj1[key])
+    if (
+      Object.hasOwn(obj1, key) 
+      && Object.hasOwn(obj2, key) 
+      && JSON.stringify(value) === JSON.stringify(obj1[key])
     ) {
-      return {name: key, status: 'not changed', value: resultValue};
-    } 
+      return { name: key, status: 'not changed', value: resultValue };
+    }
     
-    else if (
-      Object.hasOwn(obj1, key) &&
-      Object.hasOwn(obj2, key) &&
-      JSON.stringify(value) !== JSON.stringify(obj1[key])
+    if (
+      Object.hasOwn(obj1, key) 
+      && Object.hasOwn(obj2, key) 
+      && JSON.stringify(value) !== JSON.stringify(obj1[key])
     ) {
       if (obj1[key] instanceof Object) {
         previousValue = findDiff(obj1[key], {});
       }
-      return {name: key, status: 'changed', valueBefore: previousValue, valueAfter: resultValue};
+      return { 
+        name: key, status: 'changed', valueBefore: previousValue, valueAfter: resultValue 
+      };
     }
+    return; 
   });
   return diffs;
 };

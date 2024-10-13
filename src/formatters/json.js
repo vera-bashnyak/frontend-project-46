@@ -1,5 +1,3 @@
-const jsonFormatter = (differences)=> {
-  return JSON.stringify(differences, '', 4);
-};
+const jsonFormatter = (differences) => JSON.stringify(differences, '', 4);
 
 export default jsonFormatter;
