@@ -14,7 +14,7 @@ const parse = (filepath1, filepath2) => {
       const file = fs.readFileSync(path.resolve(filepath), 'utf8');
       return YAML.parse(file);
     }
-    return;
+    throw new Error('Something went wrong');
   });
   return objects;
 };

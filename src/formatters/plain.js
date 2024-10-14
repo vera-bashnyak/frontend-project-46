@@ -1,11 +1,10 @@
 const values = (value) => {
   if (value instanceof Object) {
     return '[complex value]';
-  } else {
-    return typeof value === 'string' 
-      ? `'${value}'` 
-      : value;
   }
+  return typeof value === 'string'
+    ? `'${value}'`
+    : value;
 };
 
 const plainFormatter = (diffs, keyPath = '') => {
@@ -21,7 +20,7 @@ const plainFormatter = (diffs, keyPath = '') => {
 
       return plainFormatter(obj.value, `${keyPath}${obj.name}.`);
     }
-    
+
     const stringValue = typeof obj.value === 'string' ? `'${obj.value}'` : obj.value;
 
     if (obj.status === 'added') {
@@ -30,7 +29,7 @@ const plainFormatter = (diffs, keyPath = '') => {
 
     if (obj.status === 'deleted') {
       return `Property '${keyPath}${obj.name}' was removed`;
-    } 
+    }
 
     if (obj.status === 'changed') {
       return `Property '${keyPath}${obj.name}' was updated. `

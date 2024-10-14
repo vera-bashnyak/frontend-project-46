@@ -3,44 +3,38 @@ const stylishFormatter = (diffs, replacer = ' ', spacesCount = 4, depth = 1) => 
   const spacesWithoutChar = replacer.repeat(depth * spacesCount);
 
   const formString = diffs.map((obj) => {
-    let stringValue;
-    let previousValue = obj.valueBefore;
-    let actualValue = obj.valueAfter;
-
-    if (obj.value instanceof Array) {
-      stringValue = stylishFormatter(obj.value, replacer, spacesCount, depth + 1);
-    } else {
-      stringValue = obj.value;
-    }
+    const stringValue = (obj.value instanceof Array)
+      ? stylishFormatter(obj.value, replacer, spacesCount, depth + 1)
+      : obj.value;
 
     if (!Object.prototype.hasOwnProperty.call(obj, 'status')) {
       return `${spacesWithoutChar}${obj.name}: ${stringValue}`;
-    } 
-    
+    }
+
     if (obj.status === 'added') {
-      return `${spacesWithChar}+ ${obj['name']}: ${stringValue}`;
+      return `${spacesWithChar}+ ${obj.name}: ${stringValue}`;
     }
 
     if (obj.status === 'deleted') {
       return `${spacesWithChar}- ${obj.name}: ${stringValue}`;
-    } 
-    
+    }
+
     if (obj.status === 'not changed' || obj.status === 'object-changed') {
       return `${spacesWithoutChar}${obj.name}: ${stringValue}`;
     }
 
     if (obj.status === 'changed') {
-      if (obj.valueBefore instanceof Array) {
-        previousValue = stylishFormatter(obj.valueBefore, replacer, spacesCount, depth + 1);
-      }
+      const previousValue = (obj.valueBefore instanceof Array)
+        ? stylishFormatter(obj.valueBefore, replacer, spacesCount, depth + 1)
+        : obj.valueBefore;
 
-      if (obj.valueAfter instanceof Array) {
-        actualValue = stylishFormatter(obj.valueAfter, replacer, spacesCount, depth + 1);
-      }
+      const actualValue = (obj.valueAfter instanceof Array)
+        ? stylishFormatter(obj.valueAfter, replacer, spacesCount, depth + 1)
+        : obj.valueAfter;
 
       return `${spacesWithChar}- ${obj.name}: ${previousValue}\n${spacesWithChar}+ ${obj.name}: ${actualValue}`;
     }
-    return;
+    throw new Error('Something went wrong');
   });
   return `{\n${formString.join('\n')}\n${replacer.repeat(depth * spacesCount - 4)}}`;
 };
