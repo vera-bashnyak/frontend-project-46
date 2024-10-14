@@ -17,9 +17,8 @@ const findDiff = (obj1, obj2) => {
 
     if (value instanceof Object) {
       if (obj1[key] instanceof Object
-        && JSON.stringify(value) !== JSON.stringify(obj1[key]))
-      { return { 
-        name: key, status: 'object-changed', value: resultValue };
+        && JSON.stringify(value) !== JSON.stringify(obj1[key])) {
+        return { name: key, status: 'object-changed', value: resultValue };
       }
     }
 
