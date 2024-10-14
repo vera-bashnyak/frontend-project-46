@@ -35,7 +35,7 @@ const plainFormatter = (diffs, keyPath = '') => {
       return `Property '${keyPath}${obj.name}' was updated. `
       + `From ${values(obj.valueBefore)} to ${values(obj.valueAfter)}`;
     }
-    throw new Error('Something went wrong');
+    return undefined;
   });
 
   const filtered = formString.filter((str) => typeof str !== 'undefined');
