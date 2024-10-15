@@ -4,7 +4,7 @@
 <a href="https://codeclimate.com/github/vera-bashnyak/frontend-project-46/maintainability"><img src="https://api.codeclimate.com/v1/badges/9aaa25a7b471339aa356/maintainability" /></a>
 <a href="https://codeclimate.com/github/vera-bashnyak/frontend-project-46/test_coverage"><img src="https://api.codeclimate.com/v1/badges/9aaa25a7b471339aa356/test_coverage" /></a>
 
-The program compares two configuration files and shows the difference in different formats.
+The program compares two configuration files and shows the difference.You may use options to output the result in different formats.
 ## Installation
 ```
 $git clone git@github.com:vera-bashnyak/frontend-project-46.git
@@ -34,5 +34,5 @@ gendiff -h
 [![asciicast](https://asciinema.org/a/676801.svg)](https://asciinema.org/a/676801)
 ## Plain format
 [![asciicast](https://asciinema.org/a/677369.svg)](https://asciinema.org/a/677369)
-## JSON format
+## Json format
 [![asciicast](https://asciinema.org/a/679122.svg)](https://asciinema.org/a/679122)
